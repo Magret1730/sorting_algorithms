@@ -1,0 +1,82 @@
+#include "sort.h"
+
+/**
+ * _swap - function swaps element in an array
+ * @num1: pointer to the first element
+ * @num2: pointer to the second element
+ * Return: nothing
+ */
+void _swap(int *num1, int *num2)
+{
+	int temp;
+
+	temp = *num1;
+	*num1 = *num2;
+	*num2 = temp;
+}
+
+/**
+ * partition - Partitions the array using Lomuto scheme.
+ * @array: Array to be partitioned.
+ * @low: Starting index of the partition.
+ * @high: Ending index of the partition.
+ * @size: Size of the array.
+ * Return: Index of the pivot element.
+ */
+int partition(int array[], int low, int high, size_t size)
+{
+	int pivot = array[high]; /* pivot is the last element*/
+	int i = (low - 1); /* Index of smaller element */
+	int j;
+
+	for (j = low; j <= high - 1; j++)
+	{
+		/* If current element is smaller than the pivot*/
+		if (array[j] < pivot)
+		{
+			i++;
+			_swap(&array[i], &array[j]); /* swapping the elements*/
+			/*print_array(array, size);*/
+		}
+	}
+	print_array(array, size);
+	_swap(&array[i + 1], &array[high]);
+	/*print_array(array, size);*/
+	return (i + 1);
+}
+
+/**
+ * _sort - Recursive function to perform quick sort.
+ * @array: Array to be sorted.
+ * @low: Starting index of the subarray.
+ * @high: Ending index of the subarray.
+ * @size: Size of the array.
+ * Return: nothing
+ */
+void _sort(int *array, int low, int high, size_t size)
+{
+	int index;
+
+	if (low < high)
+	{
+		index = partition(array, low, high, size);
+		_sort(array, low, index - 1, size);
+		_sort(array, index + 1, high, size);
+	}
+}
+
+/**
+ * quick_sort - Sorts an array using the quicksort algorithm.
+ * @array: Array to be sorted.
+ * @size: Size of the array.
+ * Return: nothing
+ */
+void quick_sort(int *array, size_t size)
+{
+	int low = 0;
+	int high = size - 1;
+
+	if (array == NULL || size <= 1)
+		return;
+	_sort(array, low, high, size);
+}
