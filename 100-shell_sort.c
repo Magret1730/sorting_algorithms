@@ -13,8 +13,7 @@ void swap(int *i, int *j)
 	*j = temp;
 }
 /**
- * shell_sort - function that sorts an array of in
-tegers
+ * shell_sort - function that sorts an array of integers
  * in ascending order using the Shell sort
  * @array: the array of integers
  * @size: the size of array
