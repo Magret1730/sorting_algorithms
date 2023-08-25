@@ -11,11 +11,10 @@
 
 void insertion_sort_list(listint_t **list)
 {
-	listint_t *sorted, *current, *next, *temp;
+	listint_t *sorted = NULL, *current, *next, *temp;
 
 	if (list == NULL || *list == NULL || (*list)->next == NULL)
 		return;
-	sorted = NULL;  /* Initialize sorted list as empty*/
 	current = *list; /* Take the first node from the unsorted list*/
 	while (current != NULL)
 	{
