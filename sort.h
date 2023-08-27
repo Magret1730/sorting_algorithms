@@ -37,4 +37,7 @@ void quick_sort_hoare(int *array, size_t size);
 /*void sort_deck(deck_node_t **deck);*/
 void _swap(listint_t *a, listint_t *b);
 void swap(int *i, int *j);
+void nodes_swap(listint_t **h, listint_t **n1, listint_t *n2);
+
+
 #endif

@@ -1,48 +1,64 @@
 #include "sort.h"
 
 /**
- * insertion_sort_list - function that sorts a doubly linked list of integers
- * Description: function that sorts a doubly linked list of integers
- * in ascending order using the Insertion sort algorithm
- *
- * @list: Pointer to a pointer to the head of the linked list
- * Return: void
+ * nodes_swap - function that swaps two nodes
+ * in a listint_t doubly-linked list.
+ * @h: A pointer to the head of the doubly-linked list.
+ * @n1: A pointer to the first node to swap.
+ * @n2: The second node to swap.
  */
+void nodes_swap(listint_t **h, listint_t **n1, listint_t *n2)
+{
+	/* Update next pointers*/
+	(*n1)->next = n2->next;
+	if (n2->next != NULL)
+		n2->next->prev = *n1;
 
+	/* Update prev pointers*/
+	n2->prev = (*n1)->prev;
+	n2->next = *n1;
+
+	if ((*n1)->prev != NULL)
+		(*n1)->prev->next = n2;
+	else
+		*h = n2;
+
+	(*n1)->prev = n2;
+	*n1 = n2->prev;
+}
+
+/**
+ * insertion_sort_list - function that sorts a doubly
+ * linked list of integers using
+ * the insertion sort algorithm.
+ * @list: A pointer to the head of a doubly-linked list of integers.
+ *
+ * Description: Prints the list after each swap.
+ */
 void insertion_sort_list(listint_t **list)
 {
-	listint_t *sorted = NULL, *current, *next, *temp;
 
+	listint_t *iter, *insert, *temp;
+
+	/*checks if the input list is NULL, empty*/
 	if (list == NULL || *list == NULL || (*list)->next == NULL)
 		return;
-	current = *list; /* Take the first node from the unsorted list*/
-	while (current != NULL)
+
+	iter = (*list)->next; /* Start from the second element*/
+
+	while (iter != NULL)
 	{
-		next = current->next; /*Save the next node before modifying links*/
-		if (sorted == NULL || sorted->n >= current->n)
+		temp = iter->next;
+		insert = iter->prev;
+
+		/* Compare and swap nodes as needed*/
+		while (insert != NULL && iter->n < insert->n)
 		{
-			/*Insert current node at the beginning of the sorted list*/
-			current->prev = NULL;
-			current->next = sorted;
-			if (sorted != NULL)
-				sorted->prev = current;
-			sorted = current;
+			nodes_swap(list, &insert, iter);
+			print_list((const listint_t *)*list);
 		}
-		else
-		{
-			/*Find the correct position in the sorted list to insert the current node*/
-			temp = sorted;
-			while (temp->next != NULL && temp->next->n < current->n)
-				temp = temp->next;
-			/*Insert current node after temp*/
-			current->prev = temp;
-			current->next = temp->next;
-			if (temp->next != NULL)
-				temp->next->prev = current;
-			temp->next = current;
-		}
-		print_list(sorted); /*Print the list after each insertion*/
-		current = next; /*Move to the next unsorted node*/
+
+		iter = temp; /* Move to the next element*/
 	}
-	*list = sorted; /*Update the original list head to point to the sorted list*/
 }
+
