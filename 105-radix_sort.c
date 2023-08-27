@@ -6,6 +6,8 @@
  * in ascending order using the Counting sort algorithm
  * @array: array to be sorted
  * @size: size of array
+ * @position: position of digit in number
+ * @k: maximum number
  * Return: Nothing
  */
 void count_sort(int *array, size_t size, int position, int k)
@@ -14,12 +16,6 @@ void count_sort(int *array, size_t size, int position, int k)
 
 	if (array == NULL || size <= 1)
 		return;
-	/**k = array[0];
-	for (i = 1; i < (int)size; i++)
-	{
-		if (array[i] > k)
-			k = array[i];
-	}*/
 	count_array = (int *)malloc((k + 1) * sizeof(int));
 	if (count_array == NULL)
 		exit(EXIT_FAILURE);
@@ -56,12 +52,14 @@ void radix_sort(int *array, size_t size)
 {
 	int position, k, i;
 
+	if (array == NULL || size <= 1)
+		return;
 	k = array[0]; /* k = maximum number */
 	for (i = 1; i < (int)size; i++)
 	{
 		if (array[i] > k)
 			k = array[i];
-        }
+	}
 	for (position = 1; k / position > 0; position *= 10)
 	{
 		count_sort(array, size, position, k);
