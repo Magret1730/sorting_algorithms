@@ -94,7 +94,7 @@ void merge_sort(int *array, size_t size)
 	if (buffer == NULL)
 		return;
 
-	/* merge_sort_recursive start the sorting process*/
+	/* merge_sort_recursion start the sorting process*/
 	merge_sort_recursion(array, buffer, 0, size);
 
 	/* Free the buffer memory when sorting is over*/
