@@ -38,9 +38,5 @@ void quick_sort_hoare(int *array, size_t size);
 /*void _swap(listint_t *a, listint_t *b);*/
 /*void swap(int *i, int *j);*/
 void nodes_swap(listint_t **h, listint_t **n1, listint_t *n2);
-void merge_subarray(int *subarray, int *buff, size_t left,
-size_t mid, size_t right);
-void merge_sort_recursion(int *subarray, int *buffer, size_t left, size_t right);
-void merge_sort(int *array, size_t size);
 
 #endif
